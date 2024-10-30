@@ -123,8 +123,13 @@ int32_t AP_L1_Control::target_bearing_cd(void) const
  */
 float AP_L1_Control::turn_distance(float wp_radius) const
 {
-    wp_radius *= sq(_ahrs.get_EAS2TAS());
-    return MIN(wp_radius, _L1_dist);
+    float eas2tas_sq = sq(_ahrs.get_EAS2TAS());
+
+    float scaled_turn_distance = wp_radius * eas2tas_sq;
+
+    float sanitized_turn_distance = MIN(scaled_turn_distance, _L1_dist);
+
+    return sanitized_turn_distance;
 }
 
 /*
