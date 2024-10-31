@@ -138,7 +138,7 @@ float AP_L1_Control::turn_distance(float wp_radius) const
 
     float seconds_needed_for_90_degree_turn = arc_distance_for_90_degree_turn_in_meters / ground_speed;
 
-    float estimated_lateral_shift_by_wind_during_turn = time_needed_for_90_degree_turn * head_wind;
+    float estimated_lateral_shift_by_wind_during_turn = seconds_needed_for_90_degree_turn * head_wind;
 
     float scaled_and_wind_corrected_turn_distance = scaled_turn_distance - estimated_lateral_shift_by_wind_during_turn;
     
