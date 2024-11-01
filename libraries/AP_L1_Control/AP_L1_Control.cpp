@@ -123,16 +123,16 @@ int32_t AP_L1_Control::target_bearing_cd(void) const
  */
 float AP_L1_Control::turn_distance(float wp_radius) const
 {
-    float eas2tas_sq = sq(_ahrs.get_EAS2TAS()); // true airspeed correction
+    const float eas2tas_sq = sq(_ahrs.get_EAS2TAS()); // true airspeed correction
 
-    float scaled_turn_distance = wp_radius * eas2tas_sq; // distance scaled to true airspeed
+    const float scaled_turn_distance = wp_radius * eas2tas_sq; // distance scaled to true airspeed
 
     /** Wind effect i.e. forward crosstrack error correction for the leg to the next waypoint.
      *  turn early on tail-wind
      */
     float headwind = _ahrs.head_wind(); // forward head-wind component in m/s. Negative means tail-wind.
 
-    float arc_distance_for_90_degree_turn_in_meters = 0.5f * 3.14f * wp_radius; // TODO: is there a definition of PI somewhere?
+    float arc_distance_for_90_degree_turn_in_meters = 0.5f * M_PI * wp_radius;
 
     float ground_speed = _ahrs.groundspeed_vector().length();
 
